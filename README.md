@@ -5,3 +5,11 @@
 - Using the chart js for making the chart for better visualisation and making it dynamic according to the data being fetched.
 
 - Making the map using the leaflet and using it for plotting the data accordingly.
+
+### Tack to be done
+
+- [x] Making the header
+- [ ] Making the countries section
+- [ ] Making the realtime data section
+- [ ] Making the map section
+- [ ] Making the chart section
