@@ -7,6 +7,15 @@ import {FormControl,MenuItem,Select,Card,CardContent} from '@material-ui/core'
 function App() {
   const [countries,setCountries]=useState([])
   const [country,setCountry]=useState('worldwide');
+  const [countryInfo,setCountryInfo]=useState({});
+
+  useEffect(()=>{//this is done for the initial loding problem and the component dose not showed the worldwide data by defalut
+    fetch('https://disease.sh/v3/covid-19/all')
+    .then(response=>response.json())
+    .then(data=>{
+      setCountryInfo(data);
+    })
+  },[])
 
   useEffect(()=>{
     const getCountryData= async ()=>{
@@ -23,11 +32,25 @@ function App() {
     getCountryData();
   },[])
 
-  const onCountryChange=async(event)=>{
+  const onCountryChange= async (event)=>{ //making this async for awating for the response of the api 
     const countryCode=event.target.value;
-    setCountry(countryCode);
-    console.log("some country code is ",countryCode)
-  }
+    
+
+    const url =
+      countryCode==='worldwide'
+      ?'https://disease.sh/v3/covid-19/all'
+      : `https://disease.sh/v3/covid-19/countries/${countryCode}`
+      
+      await fetch(url)
+      .then((response) =>response.json())
+      .then((data)=>{
+        
+        setCountry(countryCode);
+        //storing the whole data of the country given the countrycode
+        setCountryInfo(data)
+      })
+    }
+    console.log(countryInfo)
 
   return (
     <div className="App">
@@ -58,16 +81,18 @@ function App() {
       {/* Headers */}
       {/* Title +selecting the input dropdown field */}
         <div className="app__stats">
-          <InfoBox  title="CoronaVirus cases" cases={900} total={4000}/>
-          <InfoBox  title="CoronaVirus cases" cases={900} total={4000}/>
-          <InfoBox  title="CoronaVirus cases" cases={900} total={4000}/>
+          <InfoBox  title="CoronaVirus cases" cases={countryInfo.todayCases} total={countryInfo.cases}/>
+          <InfoBox  title="Recovered" cases={countryInfo.todayRecovered} total={countryInfo.recovered}/>
+          <InfoBox  title="Deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths}/>
         </div>
         <Map/>
       </div>
 
       <Card className="app__right">
         <CardContent color="textSecondary">
-          <h2>this is the right section of the application </h2>
+          <h2>Live cases by country</h2>
+          <Table countries={country}/>
+          <h2>Worldwide live cases</h2>
         </CardContent>
          {/* Table */}
          {/* Graph  */}
