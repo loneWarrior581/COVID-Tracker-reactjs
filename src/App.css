@@ -1,9 +1,31 @@
 * {
   margin: 0px;
 }
+body {
+  background-color: #f5f6fa;
+}
+
+.App {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+}
 .app__header {
   display: flex;
   justify-content: space-between;
+  margin: 0px 100px;
   align-items: center;
   margin-bottom: 20px;
+}
+.app__stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* making the cards responsive using the media querries */
+@media (max-width: 990px) {
+  .App {
+    flex-direction: column;
+  }
 }
