@@ -2,12 +2,14 @@ import React,{useState,useEffect} from 'react'
 import './App.css';
 import InfoBox from './InfoBox'
 import Map from './Map'
+import Table from './Table'
 import {FormControl,MenuItem,Select,Card,CardContent} from '@material-ui/core'
 
 function App() {
   const [countries,setCountries]=useState([])
   const [country,setCountry]=useState('worldwide');
   const [countryInfo,setCountryInfo]=useState({});
+  const [tableData,setTableData]=useState([]);
 
   useEffect(()=>{//this is done for the initial loding problem and the component dose not showed the worldwide data by defalut
     fetch('https://disease.sh/v3/covid-19/all')
@@ -26,6 +28,8 @@ function App() {
             name:country.country, // united kingdom ,india, united states of america 
             value: country.countryInfo.iso3 //UK IND USA
           }))
+
+          setTableData(data);
           setCountries(countries);//this countries contain the value as an array of objects and that is returned by the map function 
         })
     }
@@ -50,8 +54,7 @@ function App() {
         setCountryInfo(data)
       })
     }
-    console.log(countryInfo)
-
+    console.log(tableData)
   return (
     <div className="App">
 
@@ -91,7 +94,8 @@ function App() {
       <Card className="app__right">
         <CardContent color="textSecondary">
           <h2>Live cases by country</h2>
-          <Table countries={country}/>
+          <Table countries={tableData}/>
+          {/* This table is showing the no of cases in sorted order */}
           <h2>Worldwide live cases</h2>
         </CardContent>
          {/* Table */}
