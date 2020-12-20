@@ -3,6 +3,8 @@ import './App.css';
 import InfoBox from './InfoBox'
 import Map from './Map'
 import Table from './Table'
+import {sortData} from './util'
+import LineGraph from './LineGraph'
 import {FormControl,MenuItem,Select,Card,CardContent} from '@material-ui/core'
 
 function App() {
@@ -28,8 +30,9 @@ function App() {
             name:country.country, // united kingdom ,india, united states of america 
             value: country.countryInfo.iso3 //UK IND USA
           }))
-
-          setTableData(data);
+          const sortedData=sortData(data)
+          // insted giving the data as it is giving it in the sortetd form 
+          setTableData(sortedData);
           setCountries(countries);//this countries contain the value as an array of objects and that is returned by the map function 
         })
     }
@@ -54,7 +57,7 @@ function App() {
         setCountryInfo(data)
       })
     }
-    console.log(tableData)
+    // console.log(tableData)
   return (
     <div className="App">
 
@@ -97,6 +100,7 @@ function App() {
           <Table countries={tableData}/>
           {/* This table is showing the no of cases in sorted order */}
           <h2>Worldwide live cases</h2>
+          <LineGraph casesType='cases'/>
         </CardContent>
          {/* Table */}
          {/* Graph  */}
@@ -107,3 +111,4 @@ function App() {
 }
 
 export default App;
+// 
