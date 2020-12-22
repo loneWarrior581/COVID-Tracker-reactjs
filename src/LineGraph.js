@@ -4,7 +4,8 @@ import numeral from "numeral";
 
 const options = {
   legend: {
-    display: false,
+    display: true,
+    value:"Cases"
   },
   elements: {
     point: {
@@ -63,7 +64,7 @@ const buildChartData = (data, casesType) => {
   return chartData;
 };
 
-function LineGraph({ casesType }) {
+function LineGraph({ casesType='cases' }) {
   const [data, setData] = useState({});
 
   useEffect(() => {

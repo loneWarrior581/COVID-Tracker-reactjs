@@ -1,17 +1,20 @@
 import React,{useState,useEffect} from 'react'
 import './App.css';
 import InfoBox from './InfoBox'
-import Map from './Map'
+import Map from './MapBox'
 import Table from './Table'
 import {sortData} from './util'
 import LineGraph from './LineGraph'
 import {FormControl,MenuItem,Select,Card,CardContent} from '@material-ui/core'
+import 'leaflet/dist/leaflet.css';
 
 function App() {
   const [countries,setCountries]=useState([])
   const [country,setCountry]=useState('worldwide');
   const [countryInfo,setCountryInfo]=useState({});
   const [tableData,setTableData]=useState([]);
+  const [mapCenter,setMapCenter]=useState({lat:20.5937,lng:78.9629})
+  const [mapZoom,setMapZoom]=useState(3)
 
   useEffect(()=>{//this is done for the initial loding problem and the component dose not showed the worldwide data by defalut
     fetch('https://disease.sh/v3/covid-19/all')
@@ -91,7 +94,13 @@ function App() {
           <InfoBox  title="Recovered" cases={countryInfo.todayRecovered} total={countryInfo.recovered}/>
           <InfoBox  title="Deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths}/>
         </div>
-        <Map/>
+
+
+        <Map center={mapCenter}
+          zoom={mapZoom}
+        />
+
+
       </div>
 
       <Card className="app__right">
@@ -100,7 +109,7 @@ function App() {
           <Table countries={tableData}/>
           {/* This table is showing the no of cases in sorted order */}
           <h2>Worldwide live cases</h2>
-          <LineGraph casesType='cases'/>
+          <LineGraph />
         </CardContent>
          {/* Table */}
          {/* Graph  */}
@@ -111,4 +120,4 @@ function App() {
 }
 
 export default App;
-// 
+// https://youtu.be/cF3pIMJUZxM?t=10059
