@@ -9,13 +9,17 @@ body {
   display: flex;
   justify-content: space-evenly;
   padding: 20px;
+  margin: 20px;
 }
 .app__header {
   display: flex;
   justify-content: space-between;
-  margin: 0px 100px;
+  margin: 0px 245px;
   align-items: center;
   margin-bottom: 20px;
+}
+.app__header h1 {
+  margin: 0px 10px;
 }
 .app__stats {
   display: flex;

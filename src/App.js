@@ -35,7 +35,7 @@ function App() {
         setCountryInfo(data)
         const lat=data.countryInfo.lat;
         const long =data.countryInfo.long;
-        setMapCenter([lat,long]);//I dont know why they are not working 
+        countryCode=="worldwide"?setMapCenter({lat:20.5937,lng:78.9629}):setMapCenter([lat,long]);//I dont know why they are not working 
         setMapZoom(4);
       })
     } 
@@ -74,42 +74,45 @@ function App() {
     <div className="App">
 
       <div className="app__left">
-        <div className="app__header">
-          <h1>COVID 19 Tracker</h1>
-          <FormControl className="app__dropdown">
-            <Select variant="outlined" value={country}
-            onChange={onCountryChange}>
-              <MenuItem value="worldwide">Worldwide</MenuItem>
-              {
-                countries.map((country)=>(
-                  <MenuItem value={country.value}>{country.name}</MenuItem>
-                ))
-              }
+          <div className="app__header">
 
-              {/* <MenuItem value="something">This</MenuItem>
-              <MenuItem value="something">is</MenuItem>
-              <MenuItem value="something">dope</MenuItem>
-              <MenuItem value="something">insane</MenuItem> */}
+            <h1>COVID 19 Tracker</h1>
 
-            </Select>
-          </FormControl>
-        </div>
+            <FormControl className="app__dropdown">
+              <Select variant="outlined" value={country}
+              onChange={onCountryChange}>
+                <MenuItem value="worldwide">Worldwide</MenuItem>
+                {
+                  countries.map((country)=>(
+                    <MenuItem value={country.value}>{country.name}</MenuItem>
+                  ))
+                }
+
+                {/* <MenuItem value="something">This</MenuItem>
+                <MenuItem value="something">is</MenuItem>
+                <MenuItem value="something">dope</MenuItem>
+                <MenuItem value="something">insane</MenuItem> */}
+
+              </Select>
+            </FormControl>
+
+          </div>
       
-      {/* List of all the components used  */}
-      {/* Headers */}
-      {/* Title +selecting the input dropdown field */}
-        <div className="app__stats">
-          <InfoBox  title="CoronaVirus cases" cases={countryInfo.todayCases} total={countryInfo.cases}/>
-          <InfoBox  title="Recovered" cases={countryInfo.todayRecovered} total={countryInfo.recovered}/>
-          <InfoBox  title="Deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths}/>
-        </div>
+            {/* List of all the components used  */}
+            {/* Headers */}
+            {/* Title +selecting the input dropdown field */}
+          <div className="app__stats">
+            <InfoBox  title="CoronaVirus cases" cases={countryInfo.todayCases} total={countryInfo.cases}/>
+            <InfoBox  title="Recovered" cases={countryInfo.todayRecovered} total={countryInfo.recovered}/>
+            <InfoBox  title="Deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths}/>
+          </div>
 
 
-        <Map 
-          countries={mapCountries}
-          center={mapCenter}
-          zoom={mapZoom}
-        />
+          <Map 
+            countries={mapCountries}
+            center={mapCenter}
+            zoom={mapZoom}
+          />
 
 
       </div>
@@ -131,4 +134,4 @@ function App() {
 }
 
 export default App;
-// https://youtu.be/cF3pIMJUZxM?t=12422
+//https://youtu.be/cF3pIMJUZxM?t=13818

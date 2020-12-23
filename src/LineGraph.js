@@ -88,7 +88,7 @@ function LineGraph({ casesType='cases' }) {
     <div>
       {data?.length > 0 && (
         <Line
-          data={{
+          data={{ 
             datasets: [
               {
                 backgroundColor: "rgba(204, 16, 52, 0.5)",
