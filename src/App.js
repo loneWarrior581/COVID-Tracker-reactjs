@@ -15,6 +15,30 @@ function App() {
   const [tableData,setTableData]=useState([]);
   const [mapCenter,setMapCenter]=useState({lat:20.5937,lng:78.9629})
   const [mapZoom,setMapZoom]=useState(3)
+  const [mapCountries,setMapCountries]=useState([]);
+
+
+  const onCountryChange= async (event)=>{ //making this async for awating for the response of the api 
+    const countryCode=event.target.value;
+    
+
+    const url =
+      countryCode==='worldwide'
+      ?'https://disease.sh/v3/covid-19/all'
+      : `https://disease.sh/v3/covid-19/countries/${countryCode}`
+      
+      await fetch(url)
+      .then((response) =>response.json())
+      .then((data)=>{
+        setCountry(countryCode);
+        //storing the whole data of the country given the countrycode
+        setCountryInfo(data)
+        const lat=data.countryInfo.lat;
+        const long =data.countryInfo.long;
+        setMapCenter([lat,long]);//I dont know why they are not working 
+        setMapZoom(4);
+      })
+    } 
 
   useEffect(()=>{//this is done for the initial loding problem and the component dose not showed the worldwide data by defalut
     fetch('https://disease.sh/v3/covid-19/all')
@@ -33,6 +57,8 @@ function App() {
             name:country.country, // united kingdom ,india, united states of america 
             value: country.countryInfo.iso3 //UK IND USA
           }))
+
+          setMapCountries(data);
           const sortedData=sortData(data)
           // insted giving the data as it is giving it in the sortetd form 
           setTableData(sortedData);
@@ -42,24 +68,7 @@ function App() {
     getCountryData();
   },[])
 
-  const onCountryChange= async (event)=>{ //making this async for awating for the response of the api 
-    const countryCode=event.target.value;
-    
-
-    const url =
-      countryCode==='worldwide'
-      ?'https://disease.sh/v3/covid-19/all'
-      : `https://disease.sh/v3/covid-19/countries/${countryCode}`
-      
-      await fetch(url)
-      .then((response) =>response.json())
-      .then((data)=>{
-        
-        setCountry(countryCode);
-        //storing the whole data of the country given the countrycode
-        setCountryInfo(data)
-      })
-    }
+ 
     // console.log(tableData)
   return (
     <div className="App">
@@ -96,7 +105,9 @@ function App() {
         </div>
 
 
-        <Map center={mapCenter}
+        <Map 
+          countries={mapCountries}
+          center={mapCenter}
           zoom={mapZoom}
         />
 
@@ -120,4 +131,4 @@ function App() {
 }
 
 export default App;
-// https://youtu.be/cF3pIMJUZxM?t=10059
+// https://youtu.be/cF3pIMJUZxM?t=12422
