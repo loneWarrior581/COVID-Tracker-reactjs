@@ -67,7 +67,7 @@ function App() {
         })
     }
     getCountryData();
-  },[])
+  },[Map])
 
  
     // console.log(tableData)
@@ -103,9 +103,9 @@ function App() {
             {/* Headers */}
             {/* Title +selecting the input dropdown field */}
           <div className="app__stats">
-            <InfoBox onClick={(e)=>setCasesType('cases')} title="CoronaVirus cases" cases={prettyPrintStats( countryInfo.todayCases)} total={prettyPrintStats(countryInfo.cases)}/>
-            <InfoBox onClick={(e)=>setCasesType('recovered')} title="Recovered" cases={prettyPrintStats(countryInfo.todayRecovered)} total={prettyPrintStats(countryInfo.recovered)}/>
-            <InfoBox onClick={(e)=>setCasesType('deaths')} title="Deaths" cases={prettyPrintStats(countryInfo.todayDeaths)} total={prettyPrintStats(countryInfo.deaths)}/>
+            <InfoBox active={casesType==='cases'} onClick={(e)=>setCasesType('cases')} title="CoronaVirus cases" cases={prettyPrintStats( countryInfo.todayCases)} total={prettyPrintStats(countryInfo.cases)}/>
+            <InfoBox active={casesType==='recovered'} onClick={(e)=>setCasesType('recovered')} title="Recovered" cases={prettyPrintStats(countryInfo.todayRecovered)} total={prettyPrintStats(countryInfo.recovered)}/>
+            <InfoBox active={casesType==='deaths'} onClick={(e)=>setCasesType('deaths')} title="Deaths" cases={prettyPrintStats(countryInfo.todayDeaths)} total={prettyPrintStats(countryInfo.deaths)}/>
           </div>
 
 
@@ -124,8 +124,8 @@ function App() {
           <h2>Live cases by country</h2>
           <Table countries={tableData}/>
           {/* This table is showing the no of cases in sorted order */}
-          <h2>Worldwide live cases</h2>
-          <LineGraph />
+          <h2>Worldwide live {casesType} </h2>
+          <LineGraph casesType={casesType} />
         </CardContent>
          {/* Table */}
          {/* Graph  */}

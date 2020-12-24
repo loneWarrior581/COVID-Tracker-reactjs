@@ -1,7 +1,7 @@
 import { tileLayer } from 'leaflet'
 import React from 'react'
 // import { Map as LeafletMap } from "react-leaflet";
-import {  MapContainer as LeafletMap,MapContainer, TileLayer, Marker, Popup,Circle } from 'react-leaflet'
+import {  MapContainer as LeafletMap, TileLayer } from 'react-leaflet'
 import './Map.css'
 import {showDataOnMap} from './util'
 

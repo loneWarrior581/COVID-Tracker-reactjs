@@ -4,8 +4,7 @@ import numeral from "numeral";
 
 const options = {
   legend: {
-    display: true,
-    value:"Cases"
+    display: false,
   },
   elements: {
     point: {
