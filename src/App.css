@@ -15,11 +15,12 @@ body {
   display: flex;
   justify-content: space-between;
   margin: 0px 245px;
-  align-items: center;
+  /* align-items: center; */
   margin-bottom: 20px;
 }
 .app__header h1 {
   margin: 0px 10px;
+  color: red;
 }
 .app__stats {
   display: flex;
@@ -27,9 +28,22 @@ body {
   justify-content: space-between;
 }
 
+.app__right {
+  display: flex;
+  flex-direction: column;
+}
+.app__right .MuiCardContent-root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 /* making the cards responsive using the media querries */
 @media (max-width: 990px) {
   .App {
     flex-direction: column;
   }
+}
+.app__graph {
+  flex-grow: 1;
 }

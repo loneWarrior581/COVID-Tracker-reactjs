@@ -1,5 +1,6 @@
 .InfoBox {
   flex: 1;
+  cursor: pointer;
 }
 .InfoBox:not(last-child) {
   margin-right: 15px;
@@ -15,4 +16,15 @@
   font-size: 0.8rem !important;
   font-weight: 700 !important;
   margin-top: 15px;
+}
+
+.infoBox--Selected {
+  border-top: 10px solid greenyellow;
+  box-shadow: 1px 1px 5px 2px #888888 !important;
+}
+.infoBox--Red {
+  border-color: red;
+}
+.infoCases--color {
+  color: rgb(85, 189, 64);
 }
