@@ -3,7 +3,7 @@ import './App.css';
 import InfoBox from './InfoBox'
 import Map from './MapBox'
 import Table from './Table'
-import {sortData} from './util'
+import {sortData,prettyPrintStats} from './util'
 import LineGraph from './LineGraph'
 import {FormControl,MenuItem,Select,Card,CardContent} from '@material-ui/core'
 import 'leaflet/dist/leaflet.css';
@@ -16,6 +16,7 @@ function App() {
   const [mapCenter,setMapCenter]=useState({lat:20.5937,lng:78.9629})
   const [mapZoom,setMapZoom]=useState(3)
   const [mapCountries,setMapCountries]=useState([]);
+  const [casesType,setCasesType] =useState('cases');
 
 
   const onCountryChange= async (event)=>{ //making this async for awating for the response of the api 
@@ -102,13 +103,14 @@ function App() {
             {/* Headers */}
             {/* Title +selecting the input dropdown field */}
           <div className="app__stats">
-            <InfoBox  title="CoronaVirus cases" cases={countryInfo.todayCases} total={countryInfo.cases}/>
-            <InfoBox  title="Recovered" cases={countryInfo.todayRecovered} total={countryInfo.recovered}/>
-            <InfoBox  title="Deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths}/>
+            <InfoBox onClick={(e)=>setCasesType('cases')} title="CoronaVirus cases" cases={prettyPrintStats( countryInfo.todayCases)} total={prettyPrintStats(countryInfo.cases)}/>
+            <InfoBox onClick={(e)=>setCasesType('recovered')} title="Recovered" cases={prettyPrintStats(countryInfo.todayRecovered)} total={prettyPrintStats(countryInfo.recovered)}/>
+            <InfoBox onClick={(e)=>setCasesType('deaths')} title="Deaths" cases={prettyPrintStats(countryInfo.todayDeaths)} total={prettyPrintStats(countryInfo.deaths)}/>
           </div>
 
 
           <Map 
+            casesType={casesType}
             countries={mapCountries}
             center={mapCenter}
             zoom={mapZoom}
